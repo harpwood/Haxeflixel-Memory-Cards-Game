@@ -3,7 +3,7 @@ package;
 import Card;
 import flixel.FlxG;
 import flixel.FlxState;
-import flixel.input.mouse.FlxMouseEventManager;
+import flixel.input.mouse.FlxMouseEvent;
 import flixel.text.FlxText;
 
 class PlayState extends FlxState
@@ -46,8 +46,6 @@ class PlayState extends FlxState
 		trace("My shuffled cards: " + cards);
 		// end of shuffling loop
 
-		FlxG.plugins.add(new FlxMouseEventManager());
-
 		// card placing loop
 		for (i in 0...NUMBER_OF_CARDS)
 		{
@@ -58,7 +56,7 @@ class PlayState extends FlxState
 			card.x = hm + (card.width + 10) * (i % CARDS_PER_ROW);
 			card.y = vm + (card.height + 10) * (Math.floor(i / CARDS_PER_ROW));
 
-			FlxMouseEventManager.add(card, onMouseDown);
+			FlxMouseEvent.add(card, onMouseDown);
 		}
 		// end of card placing loop
 		statusText = new FlxText(0, FlxG.height - 50, FlxG.width, READY, 30);
@@ -94,8 +92,8 @@ class PlayState extends FlxState
 				{
 					// cards match!!
 					statusText.text = "Cards match!!!!";
-					FlxMouseEventManager.remove(pickedCards[0]);
-					FlxMouseEventManager.remove(pickedCards[1]);
+					FlxMouseEvent.remove(pickedCards[0]);
+					FlxMouseEvent.remove(pickedCards[1]);
 					canPick = true;
 					matchesFound++;
 					pickedCards = new Array();
